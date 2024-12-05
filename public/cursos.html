@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <!-- Site Metas -->
+  <meta name="keywords" content=""/>
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
+
+  <title>BigWing</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css"/>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&amp;display=swap" rel="stylesheet"/>
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet"/>
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="hero_area_cursos">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-8">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+              <a class="navbar-brand" href="index.html">
+                <span>
+                  BigWing
+                </span>
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-flex  flex-column flex-lg-row align-items-center">
+                  <ul class="navbar-nav  ">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about.html">About </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="cursos.html">Cursos </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="register.html"> Registrarse</a>
+                    </li>
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                  </form>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+  <!-- Sección de Cursos -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Nuestros Cursos</h2>
+    <div class="row" id="cursos-list">
+      <!-- Los cursos se cargarán aquí por medio de JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    // Función para obtener los cursos desde el backend y mostrarlos como cards de Bootstrap
+    fetch('http://localhost:3000/api/cursos')
+      .then(response => response.json())
+      .then(data => {
+        const cursosList = document.getElementById('cursos-list');
+        data.forEach(curso => {
+          const cursoItem = document.createElement('div');
+          cursoItem.classList.add('col-md-4', 'mb-4'); // Hacer que cada card ocupe un tercio del espacio
+          cursoItem.innerHTML = `
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">${curso.nombre}</h5>
+                <p class="card-text">${curso.descripcion}</p>
+              </div>
+              <div class="card-footer">
+                <p><strong>Duración:</strong> ${curso.duracion}</p>
+                <p><strong>Impartido por:</strong> ${curso.impartido_por}</p>
+                <p><strong>Plataforma:</strong> ${curso.plataforma}</p>
+                <p><strong>Costo:</strong> ${curso.costo}</p>
+                <a href="${curso.link}" target="_blank" class="btn btn-primary">Ver más</a>
+              </div>
+            </div>
+          `;
+          cursosList.appendChild(cursoItem);
+        });
+      })
+      .catch(error => console.error('Error al cargar los cursos:', error));
+  </script>
+
+  <!-- Footer (sin cambios) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
